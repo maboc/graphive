@@ -1,3 +1,10 @@
+#tijnies toevoegingen
+*.c~
+*.h~
+*.log
+*.cfg
+*.dat
+
 # Prerequisites
 *.d
 
