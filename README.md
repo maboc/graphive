@@ -1,9 +1,11 @@
 # graphive
 A next attempt to a graph database<br>
 
-To install and run:
-1 - Download all sources from here
-2 - Make sure following software is on your machine
+To install and run:<br>
+<ol>
+    <li>Download all sources from here</li>
+    <li>Make sure following software is on your machine</li>
+    </ol>
     - gcc
     - make
 3 - cd to the location where you downloaded the sources
