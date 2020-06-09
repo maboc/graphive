@@ -1,20 +1,19 @@
 # graphive
 A next attempt to a graph database<br>
 
-To install and run:<br>
-<ol>
-    <li>Download all sources from here</li>
-    <li>Make sure following software is on your machine
-        <ul>
-           <li>gcc</li>
-           <li>make</li>
-        </ul>
-    </li>
-    <li>on the cli
-        <ol>
-            <li>cd to the location where you downloaded the sources</li>
-            <li>type make</li>
-        </ol>
+To install and run:
+###
+1. Download all sources from here
+2. Make sure following software is on your machine
+###  
+* gcc
+* make
+3. on the cli
+###
+1. cd to the location where you downloaded the sources
+2. type make
+
+
     </li>
     <li>create a configuration file</li>
     <li>on a commandline start graphive
