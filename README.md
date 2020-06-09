@@ -3,13 +3,13 @@ A next attempt to a graph database<br>
 
 To install and run:
 ###
-1. Download all sources from here
-2. Make sure following software is on your machine
-###  
-* gcc
-* make
+  1. Download all sources from here
+  2. Make sure following software is on your machine
+  ###
+    * gcc
+    * make
 
-3. on the cli
+  3. on the cli
 ###
 1. cd to the location where you downloaded the sources
 2. type make
