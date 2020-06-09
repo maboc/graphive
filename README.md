@@ -9,7 +9,7 @@ To install and run:<br>
            <li>gcc</li>
            <li>make</li>
         </ul>
-    </li
+    </li>
     <li>on the cli
         <ol>
             <li>cd to the location where you downloaded the sources</li>
