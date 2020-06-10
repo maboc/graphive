@@ -27,6 +27,14 @@ int main(int argc, char ** argv){
 	sleep(cfg->startup_delay);
 	logger("The child has started\n");
 
+	/* Start up the data thread */
+	logger("Starting up the data thread\n");
+
+	pthread_t pt;
+	int rc;
+	rc=pthread_create(&pt, NULL, data_handler, NULL);
+
+	
 	/* fire up the network */
 	listener();
       } else {

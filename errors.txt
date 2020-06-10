@@ -1,6 +1,7 @@
-0001 : something wnet wrong with stat of the configured datadir
+0001 : something wend wrong with stat of the configured datadir
 0002 : configured datadir is not a directory
 0003 : configured configfile is not found
 0004 : No : in a config line
 0005 : No \n in a config line
 0006 : Base file problem (Not a regular file)
+0007 : Stat of basefile wend belly up

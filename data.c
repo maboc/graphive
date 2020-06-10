@@ -9,50 +9,82 @@ int data_load(){
   /* does the data_dir exists */
   tmp=malloc(1000);
   bzero(tmp, 1000);
-  if(stat(cfg->data_dir, &dir_stat)){
-    sprintf(tmp, "Something wend wrong with the data_dir (%s)\n", cfg->data_dir);
-    logger(tmp);
-    free(tmp);
-    r=1;
-  } else {
-    if (S_ISDIR(dir_stat.st_mode)){  
+  if(stat(cfg->data_dir, &dir_stat)==0){
+    /*stat is OK...conitune*/
+    if (S_ISDIR(dir_stat.st_mode)!=0){
+      bzero(tmp, 1000);
       sprintf(tmp, "Datadir (%s) is an actual directory\n", cfg->data_dir);
       logger(tmp);
       
+      /*THe cofig item cfg->data_dir is actually a dir...continue*/
+      
       /* Check whether the basefile exists */
-      base=malloc(strlen(cfg->data_dir)+strlen(cfg->base_file)+2); /* +2 voor een slash en een afluitende 0 */
-      bzero(base, strlen(cfg->data_dir)+strlen(cfg->base_file)+2);
+      base=malloc(strlen(cfg->data_dir)+strlen("/base.dat")+1); /* +1 voor een afluitende 0 */
+      bzero(base, strlen(cfg->data_dir)+strlen("/base.dat")+1);
       base=strncpy(base, cfg->data_dir, strlen(cfg->data_dir));
       base=strcat(base, "/");
-      base=strcat(base, cfg->base_file);
+      base=strcat(base, "base.dat");
       
+      bzero(tmp, 1000);
       sprintf(tmp, "Base file %s\n", base);
       logger(tmp);
-      free(tmp);
       
       if(stat(base, &dir_stat)==0){
-	if(S_ISREG(dir_stat.st_mode)){
+	/* Apperantly the stat operation succeeded */
+	
+	if(S_ISREG(dir_stat.st_mode)!=0){
+	  bzero(tmp, 1000);
 	  sprintf(tmp, "Base file (%s) exists and is a regular file\n", base);
 	  logger(tmp);
-	  free(tmp);
+	  
 	  
 	} else {
-	  sprintf(tmp, "Base file (%s) problem (it's not a regular file)\n", base);
+	  bzero(tmp, 1000);
+	  sprintf(tmp, "Apperently base file (%s) is not a regular file\n", base);
 	  logger(tmp);
-	  free(tmp);
+
 	  r=6;
 	}
       } else {
-	logger("Something wend wrong checking the basefile\n");
-	logger("It probably does not exist...we assume a new install\n");
+	bzero(tmp, 1000);
+	sprintf(tmp, "stat basefile(%s) wend belly up\n", base);
+	logger(tmp);
+	
+	r=7;
       }
     } else {
-      sprintf(tmp, "Datadir (%s) is not an actual directory\n", cfg->data_dir);
+      bzero(tmp, 1000);
+      sprintf(tmp, "Datadir (%s) is _not_ an actual directory\n", cfg->data_dir);
       logger(tmp);
+      
       r=2;
-      free(tmp);
     }
+  } else {
+    bzero(tmp, 1000);
+    sprintf(tmp, "Stat datadir (%s) wend wrong\n", cfg->data_dir);
+    logger(tmp);
+
+    r=1;
+  }
+  return r;  
+}
+
+void * data_handler(void * data_in){
+  while (stoppenmaar==0){
+    logger("data_handler run\n");
+    /* iterate over the bases */
+    if(bases!=NULL){
+      bases=dll_first(bases);
+      while(bases->next!=NULL){
+	struct base_struct * b = bases->payload;
+      }
+      struct base_struct * b = bases->payload;
+    } else {
+      logger("data_handler : No bases yet\n");
+    }
+    
+    sleep(10);
   }
   
-  return r;
+  return NULL;
 }

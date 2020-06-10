@@ -6,10 +6,14 @@ struct config_struct {
   char * log;
   int startup_delay;
   char * data_dir;
+
+  /*
+Deze komen misschine later wel terug
   char * base_file;
   char * node_file;
   char * attr_file;
   char * rela_file;
+  */
 };
 
 #include <stdio.h>

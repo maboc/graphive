@@ -59,7 +59,7 @@ int config_read(){
 	    bzero(cfg->data_dir, strlen(value)+1);
 	    cfg->data_dir=strncpy(cfg->data_dir, value, strlen(value));
 	    printf(" : Stored as a string\n");
-	  } else if(strncmp(param, "base_file", strlen(param))==0){
+	    /*	  } else if(strncmp(param, "base_file", strlen(param))==0){
             cfg->base_file=malloc(strlen(value)+1);
             bzero(cfg->base_file, strlen(value)+1);
             cfg->base_file=strncpy(cfg->base_file, value, strlen(value));
@@ -79,8 +79,9 @@ int config_read(){
             bzero(cfg->rela_file, strlen(value)+1);
             cfg->rela_file=strncpy(cfg->rela_file, value, strlen(value));
             printf(" : Stored as a string\n");
+	    */
           }
-
+	  
 	  else {
 	    printf(" : No clue what to do\n");
 	  }

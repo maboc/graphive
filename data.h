@@ -6,9 +6,13 @@
 #include <unistd.h>
 #include "config.h"
 #include "logger.h"
+#include "dll.h"
 
-// extern config_struct * cfg;
+extern struct config_struct * cfg;
+extern int stoppenmaar;
+extern struct dll * bases;
 
 int data_load();
+void * data_handler(void *);
 
 #endif
