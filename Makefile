@@ -38,6 +38,9 @@ attribute.o: attribute.c attribute.h
 
 output.o: output.c output.h
 	gcc -c output.c -ggdb
+
 clean:
-	rm *~
-	rm *.o
+	rm -f graphive
+	rm -f file_test
+	rm -f *.o
+	rm -f *~ 
