@@ -5,6 +5,7 @@
 *.cfg
 *.dat
 graphive
+file_test
 
 # Prerequisites
 *.d
