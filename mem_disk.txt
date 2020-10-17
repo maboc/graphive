@@ -1,0 +1,67 @@
+Status :
+1 - Just created (not reflected in file yet)
+2 - Existing
+3 - Deleted (not reflected on file yet)
+4 - Updated (not reflected on file yet)
+
+Type :
+1 - base
+2 - base attribute
+3 - node
+4 - node attribute
+5 - relation
+6 - relation attribute
+
+-------------------------------------------------------------
+Base
+
+Field                        Data Type  memory  disk
+type                              byte             +
+file                              byte       +
+location       unsigned long long int        +
+id                                int        +     +
+status                            byte       +     +
+node list                        * dll       +
+attribute list                   * dll       +
+
+-------------------------------------------------------------
+Node
+
+Field                       Data Type Memory Disk
+type                             byte           +
+base                              int           +
+id             unsigned long long int      +    +
+file                             byte      +
+location       unsigned long long int      +
+status                           byte      +    +
+attribute list                  * dll      +
+
+-------------------------------------------------------------
+Attribute Node
+
+Field                       Data Type Memory Disk
+type                             byte           +
+node_rel_type                    byte           +  0 - node 1 - relation
+base                              int           +
+node           unsigned long long int           +
+relation       unsigned long long int           +  0 als node_rel_type=node 
+id             unsigned long long int      +    +
+key length                        int           +
+key                            string      +    +
+value length                      int           +
+value                          string      +    +
+file                             byte      +
+location       unsigned long long int      +
+status                           byte      +    +
+
+-------------------------------------------------------------
+Relation
+
+Field                       Data Type Memory Disk
+type                             byte           +
+base                             int            +
+id             unsigned long long int      +    +
+node           unsigned long long int           +
+relation to    unsigned long long int      +    +
+status                           byte      +    +
+attribute list                  * dll      +
