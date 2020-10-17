@@ -16,7 +16,8 @@ int logger(char * message){
     
     int tmp;
     tmp=fprintf(fp, "%s : %s\n", nu_string, message);
-    rc=(tmp<0)?3:0;
+    rc=(tmp<=0)?3:0;
+    fclose(fp);
   }
 
   return rc;
