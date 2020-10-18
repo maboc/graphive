@@ -14,3 +14,10 @@ clean :
 	rm *.o
 	rm *~
 
+remove : rmdat rmlog
+
+rmdat :
+	rm *.dat
+
+rmlog :
+	rm *.log
