@@ -11,5 +11,6 @@ io.o : io.c io.h
 	gcc -ggdb -c io.c
 
 clean :
-	rm *~
 	rm *.o
+	rm *~
+

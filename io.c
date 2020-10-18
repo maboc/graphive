@@ -7,9 +7,14 @@ int load(char * filename){
 
 int create_file(char * filename){
   int rc;
-
+  FILE * fp;
+  int n;
+  
   rc=logger("Create file");
   rc=logger(filename);
+
+  fp=fopen("graphive.dat", "a+");
+  n=fwrite(NULL, 1, 1024*1024, fp);
   
   return 0;
 }
