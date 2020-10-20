@@ -1,5 +1,5 @@
 #ifndef _BASE_
-#define _BASE
+#define _BASE_
 
 #include <stddef.h>
 #include <stdlib.h>

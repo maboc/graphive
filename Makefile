@@ -1,5 +1,5 @@
-graphive : graphive.o logging.o io.o dll.o startup_creation.o base.o attribute.o
-	gcc -o graphive -lpthread -ggdb graphive.o logging.o io.o dll.o startup_creation.o base.o attribute.o
+graphive : graphive.o logging.o io.o dll.o startup_creation.o base.o attribute.o node.o
+	gcc -o graphive -lpthread -ggdb graphive.o logging.o io.o dll.o startup_creation.o base.o attribute.o node.o
 
 graphive.o : graphive.c graphive.h
 	gcc -ggdb -c graphive.c 
@@ -21,6 +21,9 @@ base.o : base.c base.h
 
 attribute.o : attribute.c attribute.h
 	gcc -ggdb -c attribute.c
+
+node.o : node.c node.h
+	gcc -ggdb -c node.c
 
 clean :
 	rm *.o

@@ -1,6 +1,6 @@
 #include "graphive.h"
 
-struct dll * bases;
+struct dll * bases=NULL;
 unsigned long long int scn=0;
 
 int main(int argc, char * argv)
@@ -24,6 +24,7 @@ int main(int argc, char * argv)
   } else if (pid==0){
     /*The child in action*/
     rc=logger("This is the child speaking\n");
+    sleep(30);
     if(rc==0){
       rc=logger("Starting Initial Load");
       rc=initial_load(bases);
