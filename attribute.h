@@ -2,6 +2,7 @@
 #define _ATTRIBUTE_
 
 #include <stdlib.h>
+#include <string.h>
 
 struct attribute_type {
   unsigned long long id;
