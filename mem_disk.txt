@@ -16,11 +16,11 @@ Type :
 Base
 
 Field                        Data Type  memory  disk
-type                              byte             +
-file                              byte       +
-location       unsigned long long int        +
-id                                int        +     +
-status                            byte       +     +
+type                               int             +
+file                               int       +
+location        unsigned long long int       +
+id                                 int       +     +
+status                             int       +     +
 node list                        * dll       +
 attribute list                   * dll       +
 
@@ -40,19 +40,19 @@ attribute list                  * dll      +
 Attribute Node
 
 Field                       Data Type Memory Disk
-type                             byte           +
-node_rel_type                    byte           +  0 - node 1 - relation
+type                              int           +
+node_rel_type                     int           +  0 - node 1 - relation
 base                              int           +
-node           unsigned long long int           +
-relation       unsigned long long int           +  0 als node_rel_type=node 
-id             unsigned long long int      +    +
+node               unsigned long long           +
+relation           unsigned long long           +  0 als node_rel_type=node 
+id                 unsigned long long      +    +
 key length                        int           +
 key                            string      +    +
 value length                      int           +
 value                          string      +    +
-file                             byte      +
-location       unsigned long long int      +
-status                           byte      +    +
+file                              int      +
+location           unsigned long long      +
+status                            int      +    +
 
 -------------------------------------------------------------
 Relation

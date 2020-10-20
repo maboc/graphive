@@ -6,17 +6,31 @@ int load(char * filename){
 }
 
 int create_file(char * filename){
-  int rc;
+  int rc=0;
   FILE * fp;
   int n;
+  char * buffer;
   
-  rc=logger("Create file");
-  rc=logger(filename);
+  logger("Create file");
+  logger(filename);
 
+  buffer=malloc(1024*1024);
+  bzero(buffer,1024*1024);
+		
   fp=fopen("graphive.dat", "a+");
-  n=fwrite(NULL, 1, 1024*1024, fp);
+  // size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *stream);
+  n=fwrite(buffer, 1024*1024, 1, fp);
+  fflush(fp);
+  /* 1 omdat ik fwrite anders niet goed aand e praat krijg */
+  if(n!=1) rc=6;
   
-  return 0;
+  bzero(buffer,1024*1024);
+  sprintf(buffer, "%i", n);
+  logger(buffer);
+
+  free(buffer);
+  
+  return rc;
 }
 
 int regular_file(char * filename){
