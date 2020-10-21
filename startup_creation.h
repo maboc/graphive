@@ -5,6 +5,7 @@
 #include "dll.h"
 #include "base.h"
 #include "node.h"
+#include "attribute.h"
 
 extern struct dll * bases;
 

@@ -2,6 +2,7 @@
 
 struct dll * bases=NULL;
 unsigned long long int scn=0;
+int goon=0; //0 - go on 1 - quit
 
 int main(int argc, char * argv)
 {
@@ -32,9 +33,26 @@ int main(int argc, char * argv)
 	logger("Initial Load succeeded");
 	/*for startup testing create a base*/
 	rc=startup_creation();
+
+	/* let's startup the write process*/
+	/*
+	  int pthread_create(pthread_t *thread, const pthread_attr_t *attr, void *(*start_routine) (void *), void *arg);
+	*/
+
+	pthread_t thread;
+	rc=pthread_create(&thread, NULL, data_writer, NULL);
+
+	char * tmp;
+	tmp=malloc(100);
+	sprintf(tmp, "Pthread rc : %i", rc);
+	logger(tmp);
+	free(tmp);
+
+
+	pthread_join(thread, NULL);
       } else {
 	logger("Initial Load did not nucceed...exiting");
-    }
+      }
     } else {
       /*This is the parent .... exiting*/
       printf("This is the parent speaking. pid of the child : %i\n", pid);

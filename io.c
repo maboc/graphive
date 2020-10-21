@@ -86,3 +86,61 @@ int initial_load(){
 
   return rc; 
 }
+
+int write_base_attributes(struct base_type * base){
+  struct attribute_type * attr;
+  char * tmp;
+  
+
+  base->attributelist=first(base_attributelist);
+  while (base->attribute_list->next!=NULL){
+    attr=base->attribute_list->payload;
+    
+  }
+  
+}
+
+int write_base(struct base_type * base){
+  char * tmp;
+
+  tmp=malloc(100);
+  sprintf(tmp, "Write base : %i", base->id);
+  logger(tmp);
+  free(tmp);
+
+  write_base_attributes(base->attributelist);
+  
+  return 0;
+}
+
+int write_bases(struct dll * bases){
+  local_bases=first(local_bases);
+  while(local_bases->next!=NULL){
+    rc=write_base(local_bases->payload);
+    local_bases=local_bases->next;
+  }
+  rc=write_base(local_bases->payload);
+
+  return 0;
+}
+
+void * data_writer(void * data_in){
+  struct dll * local_bases;
+  int rc=0;
+  sleep(30);  
+  logger("Starting data_writer thread");
+  sleep(60);
+  while(goon==0){
+    logger("data_writer sweep");
+    local_bases=bases;
+
+    if (local_bases!=NULL){ //only process the data if there are actual bases
+      write_bases(local_bases);
+    } else {
+      logger("No bases yet to write");
+    }
+    
+    sleep(60);//just for now....every minute we sweep through the data
+  }
+  return NULL;
+}

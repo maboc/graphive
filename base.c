@@ -6,7 +6,7 @@ struct base_type * base_new(char * name){
   base = malloc(sizeof(struct base_type));
   base->file=-1;
   base->location=-1;
-  base->id+=scn;
+  base->id=scn++;
   base->status=1;
   base->attributelist=NULL;
   base->nodelist=NULL;

@@ -6,7 +6,7 @@ Attribute Node
 
 Field                       Data Type Memory Disk
 type                              int           +
-node_rel_type                     int           +  0 - node 1 - relation
+base_node_rel_type                int           +  0 - base 1 -node 2- relation
 base                              int           +
 node               unsigned long long           +
 relation           unsigned long long           +  0 als node_rel_type=node 
@@ -24,7 +24,7 @@ struct attribute_type * attribute_new(char * key, char * val){
   struct attribute_type * attr;
 
   attr=malloc(sizeof(struct attribute_type));
-  attr->id+=scn;
+  attr->id=scn++;
   attr->key=malloc(strlen(key)+1);//+1 om een \0 te kunnen toevoegen
   bzero(attr->key, strlen(key)+1);
   strncpy(attr->key, key, strlen(key)+1);
