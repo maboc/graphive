@@ -22,7 +22,7 @@ struct node_type{
   int file;
   unsigned long long location;
   int status;
-  struct dll * attributeslist;
+  struct dll * attributelist;
 };
 
 struct node_type * node_new(char *, char *);

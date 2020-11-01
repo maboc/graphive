@@ -22,8 +22,8 @@ struct node_type * node_new(char * key, char * val){
   node->file=0;
   node->location=0;
   node->status=1;
-  node->attributeslist=NULL;
-  node->attributeslist=dll_new(node->attributeslist, attribute_new(key, val));
+  node->attributelist=NULL;
+  node->attributelist=dll_new(node->attributelist, attribute_new(key, val));
   
   return node;
 }

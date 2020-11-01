@@ -87,17 +87,67 @@ int initial_load(){
   return rc; 
 }
 
-int write_base_attributes(struct base_type * base){
-  struct attribute_type * attr;
+int write_node(struct node_type * node, struct base_type * base){
+  char * tmp;
+
+  tmp=malloc(100);
+  sprintf(tmp, "Write node %i", node->id);
+  logger(tmp);
+  free(tmp);
+
+  write_attributes(node->attributelist, base, node);
+     
+  return 0;
+}
+
+int write_nodes(struct dll * list, struct base_type * base){
+  struct node_type * node;
+  int rc=0;
+
+  if(list==NULL){
+    logger("No nodes to write");
+  } else {
+    logger("write nodes");
+    list=first(list);
+    while(list->next!=NULL){
+      write_node(list->payload, base);
+      list=list->next;
+    }
+    rc=write_node(list->payload, base);
+  }
+  return rc;
+}
+
+int write_attribute(struct attribute_type * attr, struct base_type * base, struct node_type * node){
   char * tmp;
   
+  tmp=malloc(1000);
 
-  base->attributelist=first(base_attributelist);
-  while (base->attribute_list->next!=NULL){
-    attr=base->attribute_list->payload;
-    
-  }
+  sprintf(tmp, "Attribute : ID : %i Key : %s Value : %s\n", attr->id, attr->key, attr->val);
+  logger(tmp);
+  free(tmp);
   
+  return 0;
+}
+
+int write_attributes(struct dll * list, struct base_type * base, struct node_type * node){
+  struct attribute_type * attr;
+
+  if (list==NULL){
+    logger("No attributes to write");
+  }else{
+    logger("write attributes");
+    
+    list=first(list);
+    while(list->next!=NULL){
+      attr=list->payload;
+      write_attribute(attr, base, node);
+      list=list->next;
+    }
+    attr=list->payload;
+    write_attribute(attr, base, node);
+  }
+  return 0;
 }
 
 int write_base(struct base_type * base){
@@ -108,19 +158,25 @@ int write_base(struct base_type * base){
   logger(tmp);
   free(tmp);
 
-  write_base_attributes(base->attributelist);
+  write_attributes(base->attributelist, base, NULL);
+  write_nodes(base->nodelist, base);
   
   return 0;
 }
 
-int write_bases(struct dll * bases){
-  local_bases=first(local_bases);
-  while(local_bases->next!=NULL){
+int write_bases(struct dll * local_bases){
+  int rc;
+  if(local_bases==NULL){
+    logger("No bases to write");
+  }else{
+    logger("write bases");
+    local_bases=first(local_bases);
+    while(local_bases->next!=NULL){
+      rc=write_base(local_bases->payload);
+      local_bases=local_bases->next;
+    }
     rc=write_base(local_bases->payload);
-    local_bases=local_bases->next;
   }
-  rc=write_base(local_bases->payload);
-
   return 0;
 }
 
@@ -129,16 +185,12 @@ void * data_writer(void * data_in){
   int rc=0;
   sleep(30);  
   logger("Starting data_writer thread");
-  sleep(60);
+  //  sleep(60);
   while(goon==0){
     logger("data_writer sweep");
     local_bases=bases;
-
-    if (local_bases!=NULL){ //only process the data if there are actual bases
-      write_bases(local_bases);
-    } else {
-      logger("No bases yet to write");
-    }
+    
+    write_bases(local_bases);
     
     sleep(60);//just for now....every minute we sweep through the data
   }

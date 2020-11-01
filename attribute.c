@@ -27,10 +27,10 @@ struct attribute_type * attribute_new(char * key, char * val){
   attr->id=scn++;
   attr->key=malloc(strlen(key)+1);//+1 om een \0 te kunnen toevoegen
   bzero(attr->key, strlen(key)+1);
-  strncpy(attr->key, key, strlen(key)+1);
+  attr->key=strncpy(attr->key, key, strlen(key)+1);
   attr->val=malloc(strlen(val)+1);//+1 om een \0 te kunnen toevoegen
   bzero(attr->val, strlen(val)+1);
-  strncpy(attr->val, val, strlen(val)+1);
+  attr->val=strncpy(attr->val, val, strlen(val)+1);
   attr->file=0;
   attr->location=0;
   attr->status=1;

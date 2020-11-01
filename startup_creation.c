@@ -47,13 +47,13 @@ int startup_creation(){
     bases=dll_new(bases, base);
 
     node=node_new("name", "node_1");
-    node->attributeslist=dll_new(node->attributeslist, attribute_new("auteur", "marlies"));
-    node->attributeslist=dll_new(node->attributeslist, attribute_new("categorie", "spielerei"));
+    node->attributelist=dll_new(node->attributelist, attribute_new("auteur", "marlies"));
+    node->attributelist=dll_new(node->attributelist, attribute_new("categorie", "spielerei"));
     base->nodelist=dll_new(base->nodelist, node);
     
     node=node_new("name", "node_2");
-    node->attributeslist=dll_new(node->attributeslist, attribute_new("auteur", "ruben"));
-    node->attributeslist=dll_new(node->attributeslist, attribute_new("categorie", "serieus"));
+    node->attributelist=dll_new(node->attributelist, attribute_new("auteur", "ruben"));
+    node->attributelist=dll_new(node->attributelist, attribute_new("categorie", "serieus"));
     base->nodelist=dll_new(base->nodelist, node);
 
   } else {
