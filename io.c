@@ -220,6 +220,7 @@ int write_base(struct base_type * base){
   }else if(base->status==4){
     logger("Updated");
   }
+
   write_attributes(base->attributelist, base, NULL);
   write_nodes(base->nodelist, base);
   
