@@ -10,6 +10,7 @@ int create_file(char * filename){
   FILE * fp;
   int n;
   char * buffer;
+  unsigned long long pospoi=0;
   
   logger("Create file");
   logger(filename);
@@ -27,8 +28,14 @@ int create_file(char * filename){
   bzero(buffer,1024*1024);
   sprintf(buffer, "%i", n);
   logger(buffer);
-
   free(buffer);
+  
+  fflush(fp);  
+  fclose(fp);
+  
+  //Setting the very first entry in the file as the free position pointer
+  pospoi=sizeof(unsigned long long);
+  set_empty_spot(pospoi);
   
   return rc;
 }
@@ -91,7 +98,7 @@ int write_node(struct node_type * node, struct base_type * base){
   char * tmp;
 
   tmp=malloc(100);
-  sprintf(tmp, "Write node %i", node->id);
+  sprintf(tmp, "Write node ID : %i", node->id);
   logger(tmp);
   free(tmp);
 
@@ -123,7 +130,7 @@ int write_attribute(struct attribute_type * attr, struct base_type * base, struc
   
   tmp=malloc(1000);
 
-  sprintf(tmp, "Attribute : ID : %i Key : %s Value : %s\n", attr->id, attr->key, attr->val);
+  sprintf(tmp, "Attribute : ID : %i Key : %s Value : %s", attr->id, attr->key, attr->val);
   logger(tmp);
   free(tmp);
   
@@ -150,14 +157,69 @@ int write_attributes(struct dll * list, struct base_type * base, struct node_typ
   return 0;
 }
 
+unsigned long long get_empty_spot(){
+  unsigned long long p;
+  FILE * fp;
+
+  fp=fopen("graphive.dat", "r+");
+  fseek(fp, 0, SEEK_SET);
+  //  size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream);
+  fread(&p, sizeof(unsigned long long), 1,fp);
+  fclose(fp);
+  
+  return p;
+}
+
+void set_empty_spot(unsigned long long p){
+  FILE * fp;
+
+  fp=fopen("graphive.dat", "r+");
+  fseek(fp, 0, SEEK_SET);
+  fwrite(&p, sizeof(unsigned long long), 1, fp);
+  fclose(fp);
+  
+}
+
 int write_base(struct base_type * base){
   char * tmp;
-
+  FILE * fp;
+  int t=1; //type is base ...so 1 (zie mem_disk.txt)
+  unsigned long long p;
+  
   tmp=malloc(100);
   sprintf(tmp, "Write base : %i", base->id);
   logger(tmp);
   free(tmp);
 
+  if(base->status==2){
+    logger("Did not change");
+  } else if(base->status==1){
+    unsigned long long p;
+    
+    logger("Just Created");
+    /* file en location zullen nog niet geucvld zijn ....want nieuw */
+    /* zoek eerste lege positie in de file graphive.dat */
+
+    p=get_empty_spot();
+    base->file=0;
+    base->location=p;
+    fp=fopen("graphive.dat", "r+");
+    fseek(fp, p, SEEK_SET);
+    fwrite(&t, sizeof(int), 1, fp); //type of entry
+    fwrite(&(base->id), sizeof(int), 1, fp); //base_id
+    fwrite(&"O", sizeof(char), 1, fp); //status
+
+    fclose(fp);
+
+    set_empty_spot(p+sizeof(int)+sizeof(int)+sizeof(char));
+    
+    base->status=2;
+    
+  }else if (base->status==3){
+    logger("Deleted");
+  }else if(base->status==4){
+    logger("Updated");
+  }
   write_attributes(base->attributelist, base, NULL);
   write_nodes(base->nodelist, base);
   

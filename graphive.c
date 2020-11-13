@@ -31,17 +31,16 @@ int main(int argc, char * argv)
       rc=initial_load(bases);
       if(rc==0){
 	logger("Initial Load succeeded");
-	/*for startup testing create a base*/
-	rc=startup_creation();
-
+	if(bases==NULL){
+	  /*for startup testing create a base*/
+	  rc=startup_creation();
+	}
+	
 	/* let's startup the write process*/
-	/*
-	  int pthread_create(pthread_t *thread, const pthread_attr_t *attr, void *(*start_routine) (void *), void *arg);
-	*/
-
+		
 	pthread_t thread;
 	rc=pthread_create(&thread, NULL, data_writer, NULL);
-
+	
 	char * tmp;
 	tmp=malloc(100);
 	sprintf(tmp, "Pthread rc : %i", rc);

@@ -1,8 +1,13 @@
 Status :
+Memory:
 1 - Just created (not reflected in file yet)
-2 - Existing
+2 - OK...
 3 - Deleted (not reflected on file yet)
 4 - Updated (not reflected on file yet)
+
+Disk:
+O - OK
+D - Deleted
 
 Type :
 1 - base
@@ -20,7 +25,7 @@ type                               int             +
 file                               int       +
 location        unsigned long long int       +
 id                                 int       +     +
-status                             int       +     +
+status                             int       +     +   
 node list                        * dll       +
 attribute list                   * dll       +
 

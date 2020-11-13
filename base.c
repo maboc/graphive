@@ -1,5 +1,6 @@
 #include "base.h"
 
+
 struct base_type * base_new(char * name){
   struct base_type * base;
 
