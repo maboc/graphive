@@ -37,3 +37,21 @@ struct attribute_type * attribute_new(char * key, char * val){
   
   return attr;
 }
+
+struct attribute_type * attribute_new_from_load(unsigned long long id, char * k, char * v, unsigned long long location){
+  struct attribute_type * attr;
+
+  attr=malloc(sizeof(struct attribute_type));
+  attr->id=id;
+  attr->key=malloc(strlen(k)+1);//+1 om een \0 te kunnen toevoegen
+  bzero(attr->key, strlen(k)+1);
+  attr->key=strncpy(attr->key, k, strlen(k)+1);
+  attr->val=malloc(strlen(v)+1);//+1 om een \0 te kunnen toevoegen
+  bzero(attr->val, strlen(v)+1);
+  attr->val=strncpy(attr->val, v, strlen(v)+1);
+  attr->file=0;
+  attr->location=location;
+  attr->status=2;
+  
+  return attr;
+}  

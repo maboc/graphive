@@ -1,7 +1,124 @@
 #include "io.h"
 
 int load(char * filename){
+  FILE * fp;
+  unsigned long long empty_spot;
+  unsigned long long cur_pos;
+  int t;
+  unsigned long long id;
+  char status;
+  struct base_type * base;
+  int base_id;
+  unsigned long long node_id;
+  unsigned long long relation_id;
+  int kl;
+  char * k;
+  int vl;
+  char * v;
+  struct attribute_type * attr;
+  char * OK_SIGN;
+  struct node_type * node;
+  
+  OK_SIGN=malloc(2);
+  bzero(OK_SIGN,2);
+  OK_SIGN=strcpy(OK_SIGN, "O");
+  
+  fp=fopen(filename, "r+");
+  //first piece to read : the nexr empty spot
+  fseek(fp, 0, SEEK_SET);
+  fread(&empty_spot, sizeof(unsigned long long), 1, fp);
 
+  cur_pos=sizeof(unsigned long long);
+
+  while(cur_pos<empty_spot){
+    //read the type of the next object
+    fread(&t, sizeof(int), 1, fp);
+
+    if(t==1){
+      //it 's a base object
+      //get the id
+      fread(&id, sizeof(int), 1 , fp);
+
+
+
+      //status stuff
+      fread(&status, sizeof(char), 1, fp);
+      if (strcmp(OK_SIGN, "O")==0){
+      
+	// IF the base has status O ...create it. If status  is D, then it is deleted
+	  base=base_new_from_load(id, cur_pos);
+	  bases=dll_new(bases, base);
+	}
+	
+      //update current position
+      cur_pos=ftell(fp);
+    } else if ((t==2) || (t==4)){
+      // apparently an base attribute
+
+      //let's get the base to which this attr belongs
+      fread(&base_id, sizeof(int), 1, fp);
+
+      //get the node
+      fread(&node_id, sizeof(unsigned long long), 1, fp);
+
+      //get the relation 
+      fread(&relation_id, sizeof(unsigned long long), 1, fp);
+
+      //get the attributes ID
+      fread(&id, sizeof(unsigned long long), 1, fp);
+
+      //key stuff
+      fread(&kl, sizeof(int), 1, fp);
+      k=malloc(kl)+1;
+      bzero(k, kl+1);
+      fread(k, kl, 1, fp);
+
+      //value stuff
+      fread(&vl, sizeof(int), 1, fp);
+      v=malloc(vl)+1;
+      bzero(v, vl+1);
+      fread(v, vl, 1, fp);
+
+      //status stuff
+      fread(&status, sizeof(char), 1, fp);
+      if (strcmp(OK_SIGN, "O")==0){
+	//IF status==O ...create this attrbute
+
+	//find the base it belongs to (whether the attr belongs to a bas or a node
+	base=base_find(base_id);
+	
+	attr=attribute_new_from_load(id, k, v, cur_pos);
+	if (t==2){
+	  //it's a bas atrtibute
+	  base->attributelist=dll_new(base->attributelist, attr);
+	} else if (t==4){
+	  node=node_search(base, node_id);
+	  node->attributelist=dll_new(node->attributelist, attr);
+	}
+      }
+      //update current position
+      cur_pos=ftell(fp);
+    } else if(t==3){
+      //apparantly a node object
+      
+      //let's get the base to which this node belongs
+      fread(&base_id, sizeof(int), 1, fp);
+      
+      //get the node ID
+      fread(&id, sizeof(unsigned long long), 1, fp);
+      
+      //status stuff
+      fread(&status, sizeof(char), 1, fp);
+      if (strcmp(OK_SIGN, "O")==0){
+	//IF status==O ...create this node
+	base=base_find(base_id);
+	node=node_new_from_load(id, cur_pos);
+	base->nodelist=dll_new(base->nodelist, node);
+      }
+      //update current position
+      cur_pos=ftell(fp);
+    }
+  } 
   return 0;
 }
 
@@ -170,10 +287,12 @@ int write_attribute(struct attribute_type * attr, struct base_type * base, struc
     sprintf(tmp, "Base Attribute : ID : %i Key : %s Value : %s", attr->id, attr->key, attr->val);
     logger(tmp);
     free(tmp);
+    t=2;  
   } else {
     sprintf(tmp, "Node Attribute : ID : %i Key : %s Value : %s", attr->id, attr->key, attr->val);
     logger(tmp);
     free(tmp);
+    t=4;  
   }
   
   if(attr->status==2){
@@ -182,7 +301,6 @@ int write_attribute(struct attribute_type * attr, struct base_type * base, struc
     logger("Just created");
     
     pos=get_empty_spot();
-    t=2;  
     
     fp=fopen("graphive.dat", "r+");
     fseek(fp, pos, SEEK_SET);

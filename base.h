@@ -32,5 +32,6 @@ struct base_type{
 };
 
 struct base_type * base_new(char *);
-
+struct base_type * base_new_from_load(int, unsigned long long);
+struct base_type * base_find(int);
 #endif

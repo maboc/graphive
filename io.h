@@ -5,10 +5,12 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <stddef.h>
+#include <string.h>
 #include "logging.h"
 #include "base.h"
 #include "dll.h"
 #include "node.h"
+#include "attribute.h"
 
 extern struct dll * bases;
 extern int goon;

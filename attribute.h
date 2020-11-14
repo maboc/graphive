@@ -16,5 +16,5 @@ struct attribute_type {
 extern unsigned long long scn;
 
 struct attribute_type * attribute_new(char *, char *);
-
+struct attribute_type * attribute_new_from_load(unsigned long long, char *, char *, unsigned long long);
 #endif

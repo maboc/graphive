@@ -26,5 +26,6 @@ struct node_type{
 };
 
 struct node_type * node_new(char *, char *);
-
+struct node_type * node_new_from_load(unsigned long long, unsigned long long);
+struct node_type * node_search(struct base_type *, unsigned long long);
 #endif

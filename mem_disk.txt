@@ -25,7 +25,8 @@ type                               int             +
 file                               int       +
 location        unsigned long long int       +
 id                                 int       +     +
-status                             int       +     +   
+status                             int       +
+status                            char             +
 node list                        * dll       +
 attribute list                   * dll       +
 
@@ -38,7 +39,7 @@ base                              int           +
 id             unsigned long long int      +    +
 file                             byte      +
 location       unsigned long long int      +
-status                           byte      +    +
+status                            int      +    +
 attribute list                  * dll      +
 
 -------------------------------------------------------------
