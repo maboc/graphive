@@ -33,7 +33,7 @@ attribute list                   * dll       +
 Node
 
 Field                       Data Type Memory Disk
-type                             byte           +
+type                              int           +
 base                              int           +
 id             unsigned long long int      +    +
 file                             byte      +
@@ -42,11 +42,10 @@ status                           byte      +    +
 attribute list                  * dll      +
 
 -------------------------------------------------------------
-Attribute Node
+Attribute
 
 Field                       Data Type Memory Disk
-type                              int           +
-base_node_rel_type                int           +  0 - base 1 - node 2 - relation
+type                              int           +  2 - base 4 - node 6 - relation
 base                              int           +
 node               unsigned long long           +
 relation           unsigned long long           +  0 als node_rel_type=node 
