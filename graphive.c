@@ -50,7 +50,7 @@ int main(int argc, char * argv)
 
 	pthread_join(thread, NULL);
       } else {
-	logger("Initial Load did not nucceed...exiting");
+	logger("Initial Load did not succeed...exiting");
       }
     } else {
       /*This is the parent .... exiting*/
