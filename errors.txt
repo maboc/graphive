@@ -1,0 +1,7 @@
+1 : forking wend wrong                 | graphive.c
+2 : cannot open logfile                | logging.c
+3 : Cannot write to logfile            | logging.c
+4 : File does not exist                | io.c
+5 : 
+6 : Creeeren Initiele datafile mislukt | io.c
+7 : Startup_creation sees bases!=NULL  | startup_creation.c
