@@ -38,17 +38,24 @@ int main(int argc, char * argv)
 	
 	/* let's startup the write process*/
 		
-	pthread_t thread;
-	rc=pthread_create(&thread, NULL, data_writer, NULL);
+	pthread_t data_writer_thread;
+	rc=pthread_create(&data_writer_thread, NULL, data_writer, NULL);
 	
 	char * tmp;
 	tmp=malloc(100);
-	sprintf(tmp, "Pthread rc : %i", rc);
+	sprintf(tmp, "Spawning data writer thread : rc : %i", rc);
 	logger(tmp);
 	free(tmp);
 
-
-	pthread_join(thread, NULL);
+	pthread_t listener_thread;
+	rc=pthread_create(&listener_thread, NULL, listener,NULL);
+	
+	tmp=malloc(100);
+	sprintf(tmp, "Spawning data listener thread : rc : %i", rc);
+	logger(tmp);
+	free(tmp);
+	
+	pthread_join(data_writer_thread, NULL);
       } else {
 	logger("Initial Load did not succeed...exiting");
       }
