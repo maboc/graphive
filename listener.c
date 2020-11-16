@@ -53,9 +53,8 @@ void * listener(void * data_in){
       close(sckt);            
     }
   }
-
-    logger("Listening done");
-
-
-  return NULL;
+  
+  logger("Listening done");
+  
+  pthread_exit(NULL);
 }

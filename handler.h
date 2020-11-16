@@ -8,11 +8,11 @@
 #include <stdlib.h>
 #include "logging.h"
 #include "output.h"
+#include "parser.h"
 
-extern int stoppenmaar;
+extern int goon;
 extern struct dll * bases;
 
 void * handler(void *);
-
 
 #endif
