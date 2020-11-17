@@ -13,5 +13,6 @@ struct dll {
 struct dll * first(struct dll *);
 struct dll * last(struct dll *);
 struct dll * dll_new(struct dll *, void *);
+int dll_count(struct dll *);
 
 #endif
