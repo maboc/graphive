@@ -17,45 +17,48 @@ void * handler(void * sck){
     bzero(input, 1000);
     read(s, input, 1000);
 
-    //    output_line(s, input);
-
     command=parse(input);
     n=dll_count(command);
-    tmp=malloc(100);
-    bzero(tmp, 100);
+    tmp=malloc(1000);
+    bzero(tmp, 1000);
 
     sprintf(tmp, "args : %i\r\n", n);
     output_line(s, tmp);
 
-    bzero(tmp,100);
+    bzero(tmp,1000);
     sprintf(tmp,"Command : %s\r\n", get_parser_part(command,1));
     output_line(s, tmp);
     free(tmp);
     
-    if(strcmp(get_parser_part(command,1), "quit")==0) proceed=1;
-    
-    
-    if(strcmp(get_parser_part(command, 1), "shutdown")==0){
+    part=get_parser_part(command,1);
+    if(strcmp(part, "quit")==0){
+      proceed=1;
+    } else if (strcmp(part,"shutdown")==0){
       logger("Shutdown");
       goon=1;
       proceed=1;
-    }
-
-    part=get_parser_part(command,1);
-    if(strcmp(part, "base")==0){
+    } else if(strcmp(part, "base")==0){
       part=get_parser_part(command,2);
-      if(strcmp(part, "show")==0){
-	part=get_parser_part(command,3);
-	if(strcmp(part, "all")==0){
-	  base_show_all(s);	  
-	} else {
-	  output_line(s, "syntax error");
-	}
+      if (part==NULL){
+	output_line(s, "syntax error\r\n");
       } else {
-	output_line(s, "syntax erro");
+	if(strcmp(part, "show")==0){
+	  part=get_parser_part(command,3);
+	  if (part==NULL){
+	    output_line(s, "syntax error\r\n");
+	  } else {
+	    if (strcmp(part, "all")==0){
+	      base_show_all(s);
+	    } else {
+	      output_line(s, "show a specific base\r\n");
+	    }
+	  }
+	} else {
+	  output_line(s, "it's not the show command\r\n");
+	}
       }
     } else {
-      output_line(s, "No clue what to do");
+      output_line(s, "No clue what to do\r\n");
     }
     
     free_parser(command);
@@ -63,6 +66,6 @@ void * handler(void * sck){
   
   logger("Closing the socket");
   close(s);
-
+  
   pthread_exit(NULL);
 }

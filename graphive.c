@@ -25,7 +25,7 @@ int main(int argc, char * argv)
   } else if (pid==0){
     /*The child in action*/
     rc=logger("This is the child speaking\n");
-    sleep(30);
+    sleep(3);
     if(rc==0){
       rc=logger("Starting Initial Load");
       rc=initial_load(bases);

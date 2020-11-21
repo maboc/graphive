@@ -55,3 +55,29 @@ struct attribute_type * attribute_new_from_load(unsigned long long id, char * k,
   
   return attr;
 }  
+
+void attribute_show(int s, struct attribute_type * attr){
+  char * tmp;
+
+  tmp=malloc(1000);
+  bzero(tmp, 1000);
+  sprintf(tmp, "ID : %i Attribute key : %s Attribute value : %s\r\n", attr->id, attr->key, attr->val);
+  output_line(s, tmp);
+  free(tmp);
+  
+  return;
+}
+
+void attributes_show(int s, struct dll * list){
+  if(list!=NULL){
+    list=first(list);
+
+    while(list->next!=NULL){
+      attribute_show(s, list->payload);
+      list=list->next;
+    }
+    attribute_show(s,list->payload);
+  }
+  
+  return;
+}

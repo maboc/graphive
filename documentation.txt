@@ -1,6 +1,11 @@
-               +- all
+              +- attribute {attribute}
+      +- add -+- node
+      |
+      |        +- all
       +- show -+- <id>
-      +- new {attribute}     
+      |
+      +- new {attribute}
+      |
 base -+- delete <id>
 
 <attribute> = <atributename attributevalue>
