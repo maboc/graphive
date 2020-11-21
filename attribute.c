@@ -24,7 +24,8 @@ struct attribute_type * attribute_new(char * key, char * val){
   struct attribute_type * attr;
 
   attr=malloc(sizeof(struct attribute_type));
-  attr->id=scn++;
+  scn++;
+  attr->id=scn;
   attr->key=malloc(strlen(key)+1);//+1 om een \0 te kunnen toevoegen
   bzero(attr->key, strlen(key)+1);
   attr->key=strncpy(attr->key, key, strlen(key)+1);

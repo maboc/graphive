@@ -18,7 +18,8 @@ struct node_type * node_new(char * key, char * val){
   struct node_type * node=NULL;
 
   node=malloc(sizeof(struct node_type));
-  node->id=scn++;
+  scn++;
+  node->id=scn;
   node->file=0;
   node->location=0;
   node->status=1;

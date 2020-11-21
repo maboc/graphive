@@ -10,6 +10,7 @@
 #include "output.h"
 #include "parser.h"
 #include "base.h"
+#include "node.h"
 
 extern int goon;
 extern struct dll * bases;
