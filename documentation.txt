@@ -1,0 +1,6 @@
+               +- all
+      +- show -+- <id>
+      +- new {attribute}     
+base -+- delete <id>
+
+<attribute> = <atributename attributevalue>

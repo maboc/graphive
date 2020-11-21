@@ -1,5 +1,5 @@
-graphive : graphive.o logging.o io.o dll.o startup_creation.o base.o attribute.o node.o
-	gcc -o graphive -lpthread -ggdb graphive.o logging.o io.o dll.o startup_creation.o base.o attribute.o node.o
+graphive : graphive.o logging.o io.o dll.o startup_creation.o base.o attribute.o node.o listener.o handler.o output.o parser.o
+	gcc -o graphive -lpthread -ggdb graphive.o logging.o io.o dll.o startup_creation.o base.o attribute.o node.o listener.o handler.o output.o parser.o
 
 graphive.o : graphive.c graphive.h
 	gcc -ggdb -c graphive.c 
@@ -24,6 +24,18 @@ attribute.o : attribute.c attribute.h
 
 node.o : node.c node.h
 	gcc -ggdb -c node.c
+
+listener.o : listener.c listener.h
+	gcc -ggdb -c listener.c
+
+handler.o : handler.c handler.h
+	gcc -ggdb -c handler.c
+
+output.o : output.h output.c
+	gcc -ggdb -c output.c
+
+parser.o : parser.c parser.h
+	gcc -ggdb -c parser.c
 
 clean :
 	rm *.o

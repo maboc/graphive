@@ -30,3 +30,17 @@ struct dll * dll_new(struct dll * l, void * payload){
   return n;
 }
 
+int dll_count(struct dll * l){
+  int n=0;
+
+  if(l!=NULL){
+    l=first(l);
+    while (l->next!=NULL){
+      n++;
+      l=l->next;
+    }
+    n++;
+  } else n=0;
+
+  return n;
+}

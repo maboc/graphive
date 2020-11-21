@@ -457,5 +457,5 @@ void * data_writer(void * data_in){
     
     sleep(60);//just for now....every minute we sweep through the data
   }
-  return NULL;
+  pthread_exit(NULL);
 }
