@@ -38,7 +38,7 @@ int load(char * filename){
       //it 's a base object
       //get the id
       fread(&id, sizeof(int), 1 , fp);
-
+      if(id>scn)scn=id;
 
 
       //status stuff
@@ -57,16 +57,17 @@ int load(char * filename){
 
       //let's get the base to which this attr belongs
       fread(&base_id, sizeof(int), 1, fp);
-
+            
       //get the node
       fread(&node_id, sizeof(unsigned long long), 1, fp);
-
+            
       //get the relation 
       fread(&relation_id, sizeof(unsigned long long), 1, fp);
-
+            
       //get the attributes ID
       fread(&id, sizeof(unsigned long long), 1, fp);
-
+      if(id>scn)scn=id;
+      
       //key stuff
       fread(&kl, sizeof(int), 1, fp);
       k=malloc(kl)+1;
@@ -106,7 +107,8 @@ int load(char * filename){
       
       //get the node ID
       fread(&id, sizeof(unsigned long long), 1, fp);
-      
+      if(id>scn)scn=id;
+	    
       //status stuff
       fread(&status, sizeof(char), 1, fp);
       if (strcmp(OK_SIGN, "O")==0){

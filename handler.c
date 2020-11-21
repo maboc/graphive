@@ -1,6 +1,8 @@
 #include "handler.h"
 
 void * handler(void * sck){
+  struct dll * local_bases;
+  struct base_type * local_base=NULL;
   int s = *(int *) sck;
   char * input;
   char * tmp;
@@ -8,7 +10,7 @@ void * handler(void * sck){
   int n;
   int proceed=0;
   char * part;
-  
+
   output_line(s, "graphive....welcome\r\n\r\n\r\n");
   tmp=malloc(1000);
   input=malloc(1000);
@@ -53,8 +55,46 @@ void * handler(void * sck){
 	      output_line(s, "show a specific base\r\n");
 	    }
 	  }
+	} else if(strcmp(part,"new")==0){
+	  // are there in total 3 parts in the command (base new name)
+	  // name will be the first attribute of the base
+	  if (dll_count(command)==3)
+	    {
+	      local_bases=bases;
+	      local_bases=dll_new(local_bases, base_new(get_parser_part(command,3)));
+	    }
+	  else{
+	    output_line(s, "syntax error\r\n");
+	  }
+	} else if(strcmp(part, "add")==0){
+	  //adding an attribute to the base
+	  //check whethere there are 5 arguments in total (base add attribute key value)
+	  if (dll_count(command)==5)
+	    {
+	      if(local_base==NULL){
+		output_line(s, "base not chosen\r\n");
+	      } else {
+		local_base->attributelist=dll_new(local_base->attributelist,
+						  attribute_new(get_parser_part(command, 4),
+								get_parser_part(command, 5)));
+	      }
+	    }
 	} else {
-	  output_line(s, "it's not the show command\r\n");
+	  output_line(s, "not show/new/add\r\n");
+	}
+      }
+    } else if(strcmp(part, "use")==0) {
+      if(dll_count(command)!=2){
+	output_line(s, "syntax error\r\n");
+      } else {
+	int id=0;
+	id=atoi(get_parser_part(command,2));
+	//let's find that base
+	local_base=base_find(id);
+	if(local_base==NULL){
+	  output_line(s,"Not succeeded\r\n");
+	}else{
+	  output_line(s,"Base set\r\n");
 	}
       }
     } else {

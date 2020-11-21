@@ -1,11 +1,12 @@
-              +- attribute {attribute}
+              +- attribute - <key> - <value>
       +- add -+- node
       |
       |        +- all
       +- show -+- <id>
       |
-      +- new {attribute}
+      +- new <name>
       |
-base -+- delete <id>
+base -+- delete - <id>
 
-<attribute> = <atributename attributevalue>
+use - <id>
+

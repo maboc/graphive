@@ -9,5 +9,5 @@
 #include "listener.h"
 
 extern struct dll * bases;
-extern unsigned long long int scn;
+extern unsigned long long scn;
 extern int goon;
