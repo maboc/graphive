@@ -7,6 +7,7 @@ void * handler(void * sck){
   struct dll * command=NULL;
   int n;
   int proceed=0;
+  char * part;
   
   output_line(s, "graphive....welcome\r\n\r\n\r\n");
   tmp=malloc(1000);
@@ -29,10 +30,10 @@ void * handler(void * sck){
     bzero(tmp,100);
     sprintf(tmp,"Command : %s\r\n", get_parser_part(command,1));
     output_line(s, tmp);
-
+    free(tmp);
+    
     if(strcmp(get_parser_part(command,1), "quit")==0) proceed=1;
     
-    free(tmp);
     
     if(strcmp(get_parser_part(command, 1), "shutdown")==0){
       logger("Shutdown");
@@ -40,16 +41,23 @@ void * handler(void * sck){
       proceed=1;
     }
 
-    if(strcmp(get_parser_part(command,1), "bases")){
-      if(strcmp(get_parser_part(command,2), "show")){
-	if(strcmp(get_parser_part(command,3), "all")){
-	  bases_show(s);	  
-	}	     
-      }      	      
+    part=get_parser_part(command,1);
+    if(strcmp(part, "base")==0){
+      part=get_parser_part(command,2);
+      if(strcmp(part, "show")==0){
+	part=get_parser_part(command,3);
+	if(strcmp(part, "all")==0){
+	  base_show_all(s);	  
+	} else {
+	  output_line(s, "syntax error");
+	}
+      } else {
+	output_line(s, "syntax erro");
+      }
     } else {
       output_line(s, "No clue what to do");
     }
-      
+    
     free_parser(command);
   }
   

@@ -50,3 +50,24 @@ struct base_type * base_find(int base_id){
 
   return b;
 }
+
+void base_show(struct base_type * base, int s){
+
+  output_line(s, "Base");
+  return;
+}
+
+void base_show_all(int s){
+  struct dll * local_bases;
+
+  local_bases=bases;
+  local_bases=first(local_bases);
+
+  while(local_bases->next!=NULL){
+    base_show(local_bases->payload, s);
+    local_bases=local_bases->next;
+  }
+  base_show(local_bases->payload,s);
+
+  return;
+}

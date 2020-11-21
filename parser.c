@@ -107,6 +107,7 @@ char * get_parser_part(struct dll * command, int pos){
     command=first(command);
     while(n<pos){
       command=command->next;
+      n++;
     }
     part=command->payload;
   }

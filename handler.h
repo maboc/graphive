@@ -9,6 +9,7 @@
 #include "logging.h"
 #include "output.h"
 #include "parser.h"
+#include "base.h"
 
 extern int goon;
 extern struct dll * bases;

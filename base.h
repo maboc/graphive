@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include "dll.h"
 #include "attribute.h"
+#include "output.h"
 
 extern struct dll * bases;
 extern unsigned long long scn;
@@ -34,4 +35,7 @@ struct base_type{
 struct base_type * base_new(char *);
 struct base_type * base_new_from_load(int, unsigned long long);
 struct base_type * base_find(int);
+void base_show(struct base_type *, int);
+void base_show_all(int);
+
 #endif
