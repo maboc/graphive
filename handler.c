@@ -50,18 +50,22 @@ void * handler(void * sck){
 	output_line(s, "syntax error\r\n");
       } else {
 	if(strcmp(part, "show")==0){
-	        /* ******************************* base show***************************** */
+	  /* ******************************* base show***************************** */
 	  part=get_parser_part(command,3);
 	  if (part==NULL){
-	    output_line(s, "syntax error\r\n");
+	    /* ******************************* base show current ***************************** */
+	    base_show(local_base, s);
+	    /* ******************************* base show current ***************************** */
 	  } else {
 	    if (strcmp(part, "all")==0){
+	      /* ******************************* base show all ***************************** */
 	      base_show_all(s);
+	      /* ******************************* base show all ***************************** */
 	    } else {
-	      output_line(s, "show a specific base\r\n");
+	      output_line(s, "Not sure what to show \r\n");
 	    }
 	  }
-	        /* ******************************* base show ***************************** */
+	  /* ******************************* base show ***************************** */
 	} else if(strcmp(part,"new")==0){
 	  /* ******************************* base new ***************************** */
 	  // are there in total 3 parts in the command (base new name)
