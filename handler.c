@@ -115,12 +115,22 @@ void * handler(void * sck){
 	  }else {
 	    output_line(s, "Don't know what to add\r\n"); 
 	  }
-	} else {
-	  output_line(s, "not show/new/add\r\n");
+	  /* ******************************* base add  ***************************** */
+	} else if(strcmp(part, "view")==0){
+	  /* ******************************* base view  ***************************** */
+	  if (local_base==NULL){
+	    output_line(s, "base not chosen\r\n");
+	  } else {
+	    base_view(s, local_base);
+	  }
+	  /* ******************************* base view  ***************************** */
+	}else{
+	  output_line(s, "not show/new/add/view\r\n");
 	}
       }
       /* ******************************* base ***************************** */
     } else if(strcmp(part, "use")==0) {
+      /* ******************************* use ***************************** */
       if(dll_count(command)!=2){
 	output_line(s, "syntax error\r\n");
       } else {
@@ -134,6 +144,43 @@ void * handler(void * sck){
 	  output_line(s,"Base set\r\n");
 	}
       }
+      /* ******************************* use ***************************** */
+    } else if(strcmp(part, "node")==0) {
+      /* ******************************* node ***************************** */
+      if(strcmp(get_parser_part(command,2), "add")==0){
+	/* ******************************* node add ***************************** */
+	if(strcmp(get_parser_part(command,3), "attribute")==0){
+	  /* ******************************* node add attribute ***************************** */
+	  if(dll_count(command)!=6){
+	    output_line(s, "syntax error 6 arguments neede\r\n");
+	  } else {
+	    if(local_base==NULL){
+	      output_line(s, "base not chosen\r\n");
+	    } else {
+	      unsigned long long id;
+	      struct node_type * node;
+	      
+	      id =atoi(get_parser_part(command, 4));
+	      node=node_search(local_base, id);
+
+	      if (node==NULL){
+		output_line(s, "Error : Node not found\r\n");
+	      } else {
+		node->attributelist=dll_new(node->attributelist,
+					    attribute_new(get_parser_part(command,5),
+							  get_parser_part(command, 6)));
+	      }
+	    }
+	  }
+	  /* ******************************* node add attribute ***************************** */
+	} else if(strcmp(get_parser_part(command,3), "relation")==0){
+	  /* ******************************* node add relation ***************************** */
+	  /* ******************************* node add relation ***************************** */
+	}
+      } else {
+	output_line(s, "Syntax error: don't know what to add\r\n");
+      }
+      /* ******************************* node ***************************** */
     } else {
       output_line(s, "No clue what to do\r\n");
     }

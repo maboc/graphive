@@ -92,3 +92,10 @@ void base_show_all(int s){
 
   return;
 }
+
+void base_view(int s, struct base_type * base){
+  base_show(base, s);
+  nodes_show(s, base->nodelist);
+  
+  return;
+}

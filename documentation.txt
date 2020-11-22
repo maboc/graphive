@@ -13,6 +13,9 @@ base -+- delete - <id>
 
 use - <id>
 
+      +- add -+- attribute <id> key value
+      |
+node -+- show - <id> 
 
 Base delete <id>
 - Delete base id with all that is in it.
