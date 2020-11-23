@@ -54,7 +54,11 @@ void * handler(void * sck){
 	  part=get_parser_part(command,3);
 	  if (part==NULL){
 	    /* ******************************* base show current ***************************** */
-	    base_show(local_base, s);
+	    if (local_base==NULL){
+	      	output_line(s, "base not chosen\r\n");
+	    } else {
+	      base_show(local_base, s);
+	    }
 	    /* ******************************* base show current ***************************** */
 	  } else {
 	    if (strcmp(part, "all")==0){

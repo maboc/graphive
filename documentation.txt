@@ -54,3 +54,11 @@ base add attribute <key> <value>
 use <id>
 - Will select base with id <id> as the current base
 - Use base : No
+
+node show <id>
+- Shows all there is of node with id <id>
+- Use base : Yes
+
+node add attribute <id> <key> <val>
+- Adds an attribute to node with id <id>.The attribute consists of key <key> and value <val>
+- Use base : Yes
