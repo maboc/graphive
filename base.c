@@ -7,7 +7,8 @@ struct base_type * base_new(char * name){
   base = malloc(sizeof(struct base_type));
   base->file=-1;
   base->location=-1;
-  base->id=scn++;
+  scn++;
+  base->id=scn;
   base->status=1;
   base->attributelist=NULL;
   base->nodelist=NULL;
@@ -52,8 +53,28 @@ struct base_type * base_find(int base_id){
 }
 
 void base_show(struct base_type * base, int s){
+  char * tmp;
+  
+  output_line(s, "Base\r\n");
+  tmp=malloc(1000);
+  bzero(tmp, 1000);
 
-  output_line(s, "Base");
+  sprintf(tmp, "ID         : %i\r\n", base->id);
+  output_line(s, tmp);
+  bzero(tmp, 1000);
+  sprintf(tmp, "Nodes      : %i\r\n", dll_count(base->nodelist));
+  output_line(s, tmp);
+  bzero(tmp,1000);
+  sprintf(tmp, "Attributes : %i\r\n", dll_count(base->attributelist));
+  output_line(s, tmp);
+  attributes_show(s, base->attributelist);
+  
+  bzero(tmp,1000);
+  sprintf(tmp, "\r\n");
+  output_line(s, tmp);
+  
+  free(tmp);
+	  
   return;
 }
 
@@ -69,5 +90,12 @@ void base_show_all(int s){
   }
   base_show(local_bases->payload,s);
 
+  return;
+}
+
+void base_view(int s, struct base_type * base){
+  base_show(base, s);
+  nodes_show(s, base->nodelist);
+  
   return;
 }

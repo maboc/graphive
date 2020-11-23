@@ -15,6 +15,7 @@
 
 extern struct dll * bases;
 extern int goon;
+extern unsigned long long scn;
 
 int initial_load();
 

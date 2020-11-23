@@ -38,7 +38,7 @@ int load(char * filename){
       //it 's a base object
       //get the id
       fread(&id, sizeof(int), 1 , fp);
-
+      if(id>scn)scn=id;
 
 
       //status stuff
@@ -57,16 +57,17 @@ int load(char * filename){
 
       //let's get the base to which this attr belongs
       fread(&base_id, sizeof(int), 1, fp);
-
+            
       //get the node
       fread(&node_id, sizeof(unsigned long long), 1, fp);
-
+            
       //get the relation 
       fread(&relation_id, sizeof(unsigned long long), 1, fp);
-
+            
       //get the attributes ID
       fread(&id, sizeof(unsigned long long), 1, fp);
-
+      if(id>scn)scn=id;
+      
       //key stuff
       fread(&kl, sizeof(int), 1, fp);
       k=malloc(kl)+1;
@@ -106,7 +107,8 @@ int load(char * filename){
       
       //get the node ID
       fread(&id, sizeof(unsigned long long), 1, fp);
-      
+      if(id>scn)scn=id;
+	    
       //status stuff
       fread(&status, sizeof(char), 1, fp);
       if (strcmp(OK_SIGN, "O")==0){
@@ -216,16 +218,18 @@ int write_node(struct node_type * node, struct base_type * base){
   unsigned long long pos;
   FILE * fp;
   int t=3; //type : node (zie mem_disk.txt)
-  
+
+  /*
   tmp=malloc(100);
   sprintf(tmp, "Write node ID : %i", node->id);
   logger(tmp);
   free(tmp);
-
+  */
+  
   if(node->status==2){
-    logger("really...nothing changed");
+    // logger("really...nothing changed");
   } else if(node->status==1){
-    logger("just created");
+    // logger("just created");
     
     pos=get_empty_spot();
     fp=fopen("graphive.dat", "r+");
@@ -257,9 +261,9 @@ int write_nodes(struct dll * list, struct base_type * base){
   int rc=0;
 
   if(list==NULL){
-    logger("No nodes to write");
+    //   logger("No nodes to write");
   } else {
-    logger("write nodes");
+    //  logger("write nodes");
     list=first(list);
     while(list->next!=NULL){
       write_node(list->payload, base);
@@ -282,7 +286,8 @@ int write_attribute(struct attribute_type * attr, struct base_type * base, struc
   tmp=malloc(1000);
   null_char=malloc(1);
   bzero(null_char, 1);
-  
+
+  /*
   if(node==NULL){
     sprintf(tmp, "Base Attribute : ID : %i Key : %s Value : %s", attr->id, attr->key, attr->val);
     logger(tmp);
@@ -294,11 +299,11 @@ int write_attribute(struct attribute_type * attr, struct base_type * base, struc
     free(tmp);
     t=4;  
   }
-  
+  */
   if(attr->status==2){
-    logger("nothing to write");
+    //  logger("nothing to write");
   }else if (attr->status==1){
-    logger("Just created");
+    //logger("Just created");
     
     pos=get_empty_spot();
     
@@ -341,9 +346,9 @@ int write_attributes(struct dll * list, struct base_type * base, struct node_typ
   struct attribute_type * attr;
 
   if (list==NULL){
-    logger("No attributes to write");
+    //  logger("No attributes to write");
   }else{
-    logger("write attributes");
+    // logger("write attributes");
     
     list=first(list);
     while(list->next!=NULL){
@@ -392,7 +397,7 @@ int write_base(struct base_type * base){
   free(tmp);
 
   if(base->status==2){
-    logger("Did not change");
+    //   logger("Did not change");
   } else if(base->status==1){
     unsigned long long p;
     
@@ -430,7 +435,7 @@ int write_base(struct base_type * base){
 int write_bases(struct dll * local_bases){
   int rc;
   if(local_bases==NULL){
-    logger("No bases to write");
+    //   logger("No bases to write");
   }else{
     logger("write bases");
     local_bases=first(local_bases);

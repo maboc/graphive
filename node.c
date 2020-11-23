@@ -18,7 +18,8 @@ struct node_type * node_new(char * key, char * val){
   struct node_type * node=NULL;
 
   node=malloc(sizeof(struct node_type));
-  node->id=scn++;
+  scn++;
+  node->id=scn;
   node->file=0;
   node->location=0;
   node->status=1;
@@ -60,4 +61,31 @@ struct node_type * node_search(struct base_type * base, unsigned long long node_
   }
   
   return n;
+}
+
+void node_show(int s, struct node_type * node){
+  char * tmp;
+
+  output_line(s, "Node\r\n");
+  tmp=malloc(1000);
+  bzero(tmp, 1000);
+  sprintf(tmp, "ID    : %i\r\n", node->id);
+  output_line(s, tmp);
+
+  free(tmp);
+
+  attributes_show(s, node->attributelist);
+  return;
+  
+}
+
+void nodes_show(int s, struct dll * list){
+  list=first(list);
+  while(list->next!=NULL){
+    node_show(s, list->payload);
+    list=list->next;
+  }
+  node_show(s, list->payload);
+  
+  return;
 }

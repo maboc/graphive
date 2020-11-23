@@ -1,6 +1,64 @@
-               +- all
-      +- show -+- <id>
-      +- new {attribute}     
-base -+- delete <id>
+              +- attribute - <key> - <value>
+      +- add -+- node - <key> - <value>
+      |
+      |        +- all
+      |        +- id
+      +- show -+
+      |
+      +- view
+      |
+      +- new <name>
+      |
+base -+- delete - <id>
 
-<attribute> = <atributename attributevalue>
+use - <id>
+
+      +- add -+- attribute <id> key value
+      |
+node -+- show - <id> 
+
+Base delete <id>
+- Delete base id with all that is in it.
+- Use base : No
+
+Base new <name>
+- Creates a new base. The first attribute of the base will be an attribute with key : name and value <name>
+- Use base : No
+
+base view
+- View the complete base
+- User base : Yes
+
+base show :
+- Shows the current base
+- Use base : yes
+
+base show <id>
+- Shows base with id <id>
+- Use base : No
+
+base show all
+- Shows all bases
+- Use base : No
+
+base add node <key> <value>
+- Adds a node to the current base
+  - An attribute will be added to the node with key <key> and value <value>
+- Use base : Yes
+
+base add attribute <key> <value>
+- Adds an attribtue to the current base
+  - The attribute consists (ofcourse) of key: <key> anf value : <value>
+- Use base : Yes
+
+use <id>
+- Will select base with id <id> as the current base
+- Use base : No
+
+node show <id>
+- Shows all there is of node with id <id>
+- Use base : Yes
+
+node add attribute <id> <key> <val>
+- Adds an attribute to node with id <id>.The attribute consists of key <key> and value <val>
+- Use base : Yes

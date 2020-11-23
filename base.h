@@ -3,6 +3,7 @@
 
 #include <stddef.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "dll.h"
 #include "attribute.h"
 #include "output.h"
@@ -37,5 +38,6 @@ struct base_type * base_new_from_load(int, unsigned long long);
 struct base_type * base_find(int);
 void base_show(struct base_type *, int);
 void base_show_all(int);
+void base_view(int, struct base_type *);
 
 #endif
